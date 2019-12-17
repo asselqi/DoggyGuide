@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">DoggyGuide</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Dog Owner</string>
+    <string name="tab_text_2">Organization</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">LogIn</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or">or</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="overflow">overflow</string>
+    <string name="element1">element1</string>
+    <string name="element2">element2</string>
+    <string name="element3">element3</string>
+    <string name="element4">element4</string>
+    <string name="element5">element5</string>
+    <string name="profile">profile</string>
+    <string name="Profile">Profile</string>
+    <string name="Settings">Settings</string>
+    <string name="Logout">Logout</string>
+    <string name="home">home</string>
+    <string name="events">events</string>
+    <string name="notifications">notifications</string>
+    <string name="chat">chat</string>
+    <string name="notifications_fragment">Notifications Fragment</string>
+    <string name="chat_fragment">chat fragment</string>
+    <string name="events_fragment">Events Fragment</string>
+    <string name="Chat_Fragment">Chat_Fragment</string>
+    <string name="Chat__Fragment">Chat Fragment</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="send_on_channel_1">Send on Channel 1</string>
+    <string name="send_on_channel_2">Send on Channel 2</string>
+    <string name="switch_">Switch</string>
+</resources>
