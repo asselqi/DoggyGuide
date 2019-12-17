@@ -10,6 +10,7 @@ such as finding someone who can Keep the dog when needed or "play dates" with ot
 And finally, its goal is to conveniently link the dog owner to the organization,
 such as announcing vaccines, training or treatments that should occur soon.
 
-P.S. this app is being deveolped under a technion android development course, whcih 
+P.S. this app is being deveolped under a technion android development course, 
+     the original repo is protected, whcih 
      explains why I had only one commit and this much code.
      
