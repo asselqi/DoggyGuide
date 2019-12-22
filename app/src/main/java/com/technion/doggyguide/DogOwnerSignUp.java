@@ -61,22 +61,22 @@ public class DogOwnerSignUp extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(DogOwnerSignUp.this, "Please check your email for verification.",
-                                                        Toast.LENGTH_SHORT).show();
-//                                                FirebaseAuth.getInstance().signOut();
-//                                                finish();
+                                                        Toast.LENGTH_LONG).show();
                                                 //TODO: insert the user id to the organizations' database
+                                                mAuth.signOut();
                                                 Intent intent = new Intent(DogOwnerSignUp.this, MainActivity.class);
+                                                finish();
                                                 startActivity(intent);
                                             } else {
                                                 Toast.makeText(DogOwnerSignUp.this, task.getException().getMessage(),
-                                                        Toast.LENGTH_SHORT).show();
+                                                        Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
 
                         } else {
                             Toast.makeText(DogOwnerSignUp.this, task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -110,8 +110,4 @@ public class DogOwnerSignUp extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 }

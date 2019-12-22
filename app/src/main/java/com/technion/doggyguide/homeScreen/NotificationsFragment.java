@@ -1,134 +1,186 @@
 package com.technion.doggyguide.homeScreen;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.technion.doggyguide.notifications.NotificationReceiver;
+import com.technion.doggyguide.ExampleAdapter;
+import com.technion.doggyguide.ExampleItem;
 import com.technion.doggyguide.R;
-import com.technion.doggyguide.homeActivity;
-import com.technion.doggyguide.notifications.TimePickerFragment;
+import com.technion.doggyguide.homeScreen.alarm.eatAlarmActivity;
+import com.technion.doggyguide.homeScreen.alarm.showerAlarmActivity;
+import com.technion.doggyguide.homeScreen.alarm.walkAlarmActivity;
 
-import static com.technion.doggyguide.app.App.CHANNEL_1_ID;
-import static com.technion.doggyguide.app.App.CHANNEL_2_ID;
+import java.util.ArrayList;
 
-public class NotificationsFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link NotificationsFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link NotificationsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class NotificationsFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    private NotificationManagerCompat notificationManager;
-    private EditText editTextTitle;
-    private EditText editTextMessage;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_notifications, container, false);
-        FloatingActionButton fab = view.findViewById(R.id.fab4);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "fab clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private OnFragmentInteractionListener mListener;
 
-        Button btn_send_ch_1 = view.findViewById(R.id.send_channel1);
-        Button btn_send_ch_2 = view.findViewById(R.id.send_channel2);
 
-        notificationManager = NotificationManagerCompat.from(getActivity());
+    private ArrayList<ExampleItem> mExampleList;
+    private RecyclerView mRecyclerView;
+    private ExampleAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    View mView;
 
-        editTextTitle = view.findViewById(R.id.edit_text_title);
-        editTextMessage = view.findViewById(R.id.edit_text_message);
-
-        btn_send_ch_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendOnChannel1(v);
-            }
-        });
-
-        btn_send_ch_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendOnChannel2(v);
-            }
-        });
-
-        Button btn_time_picker = (Button) view.findViewById(R.id.time_picker);
-        btn_time_picker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getFragmentManager(), "time picker");
-            }
-        });
-        return view;
+    public NotificationsFragment() {
+        // Required empty public constructor
     }
 
-    private void sendOnChannel1(View v) {
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
-
-        Intent activityIntent = new Intent(getActivity(), homeActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(getActivity(),
-                0, activityIntent, 0);
-
-        Intent broadcastIntent = new Intent(getActivity(), NotificationReceiver.class);
-        broadcastIntent.putExtra("toastMessage", message);
-        PendingIntent actionIntent = PendingIntent.getBroadcast(getActivity(),
-                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification notification = new NotificationCompat.Builder(getActivity(), CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(Color.BLUE)
-                .setContentIntent(contentIntent)
-                .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
-                .build();
-
-        notificationManager.notify(1, notification);
-    }
-
-    private void sendOnChannel2(View v) {
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
-
-        Notification notification = new NotificationCompat.Builder(getActivity(), CHANNEL_2_ID)
-                .setSmallIcon(R.drawable.ic_two)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .build();
-
-        notificationManager.notify(2, notification);
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment NotificationsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static NotificationsFragment newInstance(String param1, String param2) {
+        NotificationsFragment fragment = new NotificationsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        TextView textView =  view.findViewById(R.id.textView1);
-        textView.setText("Hour: " + hourOfDay + " Minute: " + minute);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View mView = inflater.inflate(R.layout.fragment_notifications, container, false);
+        createExampleList();
+        buildRecyclerView();
+        return mView;
+    }
+
+    private void changeItem(int position, String text) {
+        mExampleList.get(position).changeText1(text);
+        mAdapter.notifyItemChanged(position);
+    }
+
+    private void createExampleList() {
+        mExampleList = new ArrayList<>();
+        mExampleList.add(new ExampleItem(R.mipmap.dog_walk, "Take your dog for a walk"));
+        mExampleList.add(new ExampleItem(R.mipmap.dog_shower, "Give your dog shower"));
+        mExampleList.add(new ExampleItem(R.mipmap.dog_eating, "Feed your dog"));
+    }
+
+    private void buildRecyclerView() {
+
+        mRecyclerView = mView.findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mAdapter = new ExampleAdapter(mExampleList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                changeItem(position, "Clicked");
+            }
+
+            @Override
+            public void onWalkAlarmClick(int position) { beginWalkAlarmActivity(); }
+
+            @Override
+            public void onShowerAlarmClick(int position) {
+                beginShowerAlarmActivity();
+            }
+
+            @Override
+            public void onFeedAlarmClick(int position) {
+                beginFeedAlarmActivity();
+            }
+        });
+    }
+    private void beginWalkAlarmActivity(){
+        Intent intent = new Intent(getActivity(), walkAlarmActivity.class);
+        startActivity(intent);
+    }
+    private void beginShowerAlarmActivity(){
+        Intent intent = new Intent(getActivity(), showerAlarmActivity.class);
+        startActivity(intent);
+    }
+    private void beginFeedAlarmActivity(){
+        Intent intent = new Intent(getActivity(), eatAlarmActivity.class);
+        startActivity(intent);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

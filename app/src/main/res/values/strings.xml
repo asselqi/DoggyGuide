@@ -4,9 +4,17 @@
     <string name="tab_text_1">Dog Owner</string>
     <string name="tab_text_2">Organization</string>
 
+    <!-- Home tab layout -->
+    <string name="home_tab_text_1">Home</string>
+    <string name="home_tab_text_2">Events</string>
+    <string name="home_tab_text_3">Chat</string>
+    <string name="home_tab_text_4">Reminders</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">LogIn</string>
+    <string name="google_login">Login With Google</string>
+    <string name="Web_Client_ID">1054789748992-0ev3n1am30knlevg1t7404r01ombpmir.apps.googleusercontent.com</string>
     <string name="sign_up">Sign up</string>
     <string name="or">or</string>
     <string name="password">Password</string>
@@ -36,4 +44,13 @@
     <string name="send_on_channel_1">Send on Channel 1</string>
     <string name="send_on_channel_2">Send on Channel 2</string>
     <string name="switch_">Switch</string>
+    <string name="no_alarm_set">No Alarm set</string>
+    <string name="cancel_alarm">cancel alarm</string>
+    <string name="open_time_picker">open time picker</string>
+    <string name="alarm_activity">alarm activity</string>
+    <string name="walking_alarm_activity">walking alarm activity</string>
+    <string name="shower_alarm_activity">shower alarm activity</string>
+    <string name="feed_alarm_activity">feed alarm activity</string>
+    <string name="post">Post</string>
+    <string name="set">Set</string>
 </resources>
