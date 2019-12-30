@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.technion.doggyguide.ExampleAdapter;
-import com.technion.doggyguide.ExampleItem;
+import com.technion.doggyguide.Adapters.ExampleAdapter;
+import com.technion.doggyguide.dataElements.ExampleItem;
 import com.technion.doggyguide.R;
 import com.technion.doggyguide.homeScreen.alarm.eatAlarmActivity;
 import com.technion.doggyguide.homeScreen.alarm.showerAlarmActivity;
@@ -84,10 +83,12 @@ public class NotificationsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_notifications, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        mView = view;
         createExampleList();
         buildRecyclerView();
-        return mView;
+
+        return view;
     }
 
     private void changeItem(int position, String text) {
@@ -97,9 +98,9 @@ public class NotificationsFragment extends Fragment {
 
     private void createExampleList() {
         mExampleList = new ArrayList<>();
-        mExampleList.add(new ExampleItem(R.mipmap.dog_walk, "Take your dog for a walk"));
-        mExampleList.add(new ExampleItem(R.mipmap.dog_shower, "Give your dog shower"));
-        mExampleList.add(new ExampleItem(R.mipmap.dog_eating, "Feed your dog"));
+        mExampleList.add(new ExampleItem(R.mipmap.dog_walking_, "Take your dog for a walk"));
+        mExampleList.add(new ExampleItem(R.mipmap.dog_shower_, "Give your dog a shower"));
+        mExampleList.add(new ExampleItem(R.mipmap.dog_eatting_, "Feed your dog"));
     }
 
     private void buildRecyclerView() {
@@ -143,13 +144,6 @@ public class NotificationsFragment extends Fragment {
     private void beginFeedAlarmActivity(){
         Intent intent = new Intent(getActivity(), eatAlarmActivity.class);
         startActivity(intent);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override

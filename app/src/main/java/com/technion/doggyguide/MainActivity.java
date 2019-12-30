@@ -6,22 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.technion.doggyguide.loginScreen.DogOwnerConnectionFragment;
 import com.technion.doggyguide.loginScreen.OrganizationConnectionFragment;
-
 import com.technion.doggyguide.ui.main.SectionsPagerAdapter;
 
 
@@ -30,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements
         OrganizationConnectionFragment.OnFragmentInteractionListener {
 
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements
         if (user != null) {
             Toast.makeText(MainActivity.this,"You are logged in",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, homeActivity.class);
-            finish();
             startActivity(intent);
+            finish();
         } else {
             Toast.makeText(MainActivity.this,"Please login",Toast.LENGTH_SHORT).show();
         }
